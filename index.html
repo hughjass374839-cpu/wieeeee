@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For Aanchal</title>
+<title>For Anshikaaa</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
 
@@ -12,97 +12,109 @@ body{
   margin:0;
   overflow:hidden;
   background:#1a0028;
-  color:#e6ccff;
+  color:#c89bff; /* darker */
   font-family:'Great Vibes', cursive;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:flex-start;
-  height:100vh;
   text-align:center;
 }
 
-/* Top section */
-.top{
-  margin-top:40px;
-  z-index:5;
-  position:relative;
-}
-
+/* TITLE */
 h1{
-  font-size:80px;
+  position:absolute;
+  top:6vh;
+  width:100%;
+  font-size:clamp(42px,10vw,80px);
   margin:0;
+  z-index:10;
   text-shadow:
-    0 0 6px rgba(0,0,0,0.9),
-    0 0 15px rgba(120,0,120,0.6);
+    0 2px 6px rgba(0,0,0,0.95),
+    0 0 12px rgba(0,0,0,0.9);
 }
 
-button{
-  margin-top:20px;
-  padding:18px 42px;
+/* BUTTON */
+#btn{
+  position:absolute;
+  top:20vh;
+  left:50%;
+  transform:translateX(-50%);
+  padding:clamp(12px,3vw,18px) clamp(28px,6vw,42px);
   border-radius:40px;
   border:none;
   background:rgba(255,255,255,0.2);
-  color:#e6ccff;
+  color:#c89bff;
   font-family:'Great Vibes', cursive;
-  font-size:36px;
+  font-size:clamp(22px,5vw,36px);
   cursor:pointer;
-  z-index:10;
-  position:relative;
-  text-shadow: 0 0 8px rgba(0,0,0,0.8);
+  z-index:20;
+  text-shadow:0 2px 6px rgba(0,0,0,0.95);
+  width:85%;
+  max-width:500px;
 }
 
-/* Message */
+/* MESSAGE */
 #message{
   position:absolute;
-  bottom:6%;
+  bottom:5vh;
   width:100%;
-  font-size:38px;
+  font-size:clamp(20px,4.8vw,38px);
   opacity:0;
-  transition:opacity 2s ease;
-  z-index:5;
+  transition:opacity 1.5s ease;
+  z-index:10;
   line-height:1.4;
+  padding:0 20px;
   text-shadow:
-    0 0 6px rgba(0,0,0,0.9),
-    0 0 12px rgba(0,0,0,0.8);
+    0 2px 6px rgba(0,0,0,0.95),
+    0 0 12px rgba(0,0,0,0.9);
 }
 
+/* CANVAS */
 canvas{
   position:absolute;
   top:0;
   left:0;
   z-index:1;
+  pointer-events:none;
 }
 
-/* Floating Emojis */
+/* Floating */
 .floating{
   position:absolute;
   font-size:28px;
   opacity:0.7;
-  z-index:2;
+  z-index:5;
   animation: floatUp linear infinite;
-  pointer-events:none !important;
-  user-select:none;
+  pointer-events:none;
 }
 
 @keyframes floatUp{
   from { transform: translateY(100vh); }
   to { transform: translateY(-10vh); }
 }
+
+/* Explosion */
+.explosion{
+  position:absolute;
+  pointer-events:none;
+  font-size:26px;
+  animation: explode 900ms ease-out forwards;
+}
+
+@keyframes explode{
+  from { transform: scale(0.6); opacity:1; }
+  to { transform: translate(var(--x), var(--y)) scale(1.5); opacity:0; }
+}
 </style>
 </head>
+
 <body>
 
-<div class="top">
-  <h1>Hey Aanchal</h1>
-  <button id="btn">Click if you're cute</button>
-</div>
-
+<h1>Dear Anshika <3l</h1>
+<button id="btn">if ur pretty and u know it click ts</button>
 <canvas id="c"></canvas>
 
 <div id="message">
 too far away to handpick flowers and too broke to buy you some ;-;…<br><br>
-But here are some virtual flowers.<br><br> as a reminder that even if no one does, u will always have me ;] <br><br>
+But here are some virtual flowers.<br><br>
+if u ever feel heavy or wanna vent, u will always have me by ur side ;] <br><br> everyone deserves love and i will always have some for you <br><br>
 Happy Valentine’s Day.<br><br>
 — Nityodit
 </div>
@@ -113,6 +125,8 @@ const ctx = canvas.getContext("2d");
 const btn = document.getElementById("btn");
 const message = document.getElementById("message");
 
+let started = false;
+
 function resize(){
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
@@ -120,134 +134,130 @@ function resize(){
 resize();
 window.addEventListener("resize", resize);
 
-/* Lily Petal */
+/* LILY */
 function drawPetal(x,y,angle,scale){
   ctx.save();
   ctx.translate(x,y);
   ctx.rotate(angle);
   ctx.scale(scale,scale);
 
-  let grad = ctx.createRadialGradient(0,-60,10,0,-60,110);
-  grad.addColorStop(0,"#ff5ca8");
-  grad.addColorStop(0.5,"#ffe3f2");
+  let grad = ctx.createRadialGradient(0,-50,5,0,-50,100);
+  grad.addColorStop(0,"#ff6fae");
+  grad.addColorStop(0.6,"#ffe5f1");
   grad.addColorStop(1,"#ffffff");
 
   ctx.fillStyle = grad;
   ctx.shadowColor = "rgba(255,120,180,0.5)";
-  ctx.shadowBlur = 30;
+  ctx.shadowBlur = 20;
 
   ctx.beginPath();
   ctx.moveTo(0,0);
-  ctx.bezierCurveTo(40,-100,130,-100,0,-200);
-  ctx.bezierCurveTo(-130,-100,-40,-100,0,0);
+  ctx.bezierCurveTo(30,-90,90,-90,0,-170);
+  ctx.bezierCurveTo(-90,-90,-30,-90,0,0);
   ctx.fill();
-
   ctx.restore();
 }
 
-/* Lily */
 function drawLily(cx,cy,scale){
   for(let i=0;i<6;i++){
     drawPetal(cx,cy,i*Math.PI/3,scale);
   }
-
   ctx.beginPath();
-  let core = ctx.createRadialGradient(cx,cy,5,cx,cy,40);
-  core.addColorStop(0,"#ffd700");
-  core.addColorStop(1,"#ff8c00");
-  ctx.fillStyle = core;
-  ctx.arc(cx,cy,30*scale,0,Math.PI*2);
+  ctx.fillStyle="#ffcc33";
+  ctx.arc(cx,cy,20*scale,0,Math.PI*2);
   ctx.fill();
 }
 
-/* Ribbon */
-function drawRibbon(cx,cy){
+function drawRibbon(cx,cy,scale){
   ctx.save();
   ctx.translate(cx,cy);
-
-  // left bow
+  ctx.scale(scale,scale);
   ctx.fillStyle="#c2185b";
+
   ctx.beginPath();
-  ctx.moveTo(-60,0);
-  ctx.quadraticCurveTo(-120,-40,-100,-80);
-  ctx.quadraticCurveTo(-60,-60,-40,-20);
+  ctx.moveTo(-50,0);
+  ctx.quadraticCurveTo(-100,-40,-80,-70);
+  ctx.quadraticCurveTo(-40,-50,-30,-15);
   ctx.fill();
 
-  // right bow
   ctx.beginPath();
-  ctx.moveTo(60,0);
-  ctx.quadraticCurveTo(120,-40,100,-80);
-  ctx.quadraticCurveTo(60,-60,40,-20);
+  ctx.moveTo(50,0);
+  ctx.quadraticCurveTo(100,-40,80,-70);
+  ctx.quadraticCurveTo(40,-50,30,-15);
   ctx.fill();
 
-  // center knot
   ctx.beginPath();
-  ctx.arc(0,-20,25,0,Math.PI*2);
+  ctx.arc(0,-15,18,0,Math.PI*2);
   ctx.fill();
-
   ctx.restore();
 }
 
-/* Bouquet */
 function drawBouquet(){
-  ctx.fillStyle="#1a0028";
-  ctx.fillRect(0,0,canvas.width,canvas.height);
+  ctx.clearRect(0,0,canvas.width,canvas.height);
 
+  const scaleFactor = Math.min(canvas.width/900, 1);
   const cx = canvas.width/2;
-  const cy = canvas.height/2 + 200;
+  const cy = canvas.height*0.70;
 
-  // detailed leaf base gradient
-  let leafGrad = ctx.createRadialGradient(cx,cy,100,cx,cy,450);
+  let leafGrad = ctx.createRadialGradient(cx,cy,100,cx,cy,350);
   leafGrad.addColorStop(0,"#2e7d32");
   leafGrad.addColorStop(1,"#0f3d1c");
   ctx.fillStyle=leafGrad;
 
   ctx.beginPath();
-  ctx.ellipse(cx,cy+80,340,420,0,0,Math.PI*2);
+  ctx.ellipse(cx,cy+40*scaleFactor,260*scaleFactor,320*scaleFactor,0,0,Math.PI*2);
   ctx.fill();
 
-  // layered leaves (extra depth)
-  ctx.fillStyle="rgba(255,255,255,0.05)";
-  ctx.beginPath();
-  ctx.ellipse(cx-120,cy+60,150,250,0.5,0,Math.PI*2);
-  ctx.fill();
+  drawLily(cx,cy-180*scaleFactor,1.1*scaleFactor);
+  drawLily(cx-160*scaleFactor,cy-110*scaleFactor,0.9*scaleFactor);
+  drawLily(cx+160*scaleFactor,cy-110*scaleFactor,0.9*scaleFactor);
+  drawLily(cx-80*scaleFactor,cy-70*scaleFactor,0.8*scaleFactor);
+  drawLily(cx+80*scaleFactor,cy-70*scaleFactor,0.8*scaleFactor);
 
-  ctx.beginPath();
-  ctx.ellipse(cx+120,cy+60,150,250,-0.5,0,Math.PI*2);
-  ctx.fill();
-
-  // lilies
-  drawLily(cx,cy-300,1.4);
-  drawLily(cx-240,cy-200,1.1);
-  drawLily(cx+240,cy-200,1.1);
-  drawLily(cx-120,cy-150,1);
-  drawLily(cx+120,cy-150,1);
-  drawLily(cx-200,cy-80,0.9);
-  drawLily(cx+200,cy-80,0.9);
-
-  // ribbon
-  drawRibbon(cx,cy+40);
+  drawRibbon(cx,cy+10*scaleFactor,scaleFactor);
 }
 
-/* Floating Emojis */
 function createFloating(){
-  const emojis = ["✨","🌹","💐"];
-  for(let i=0;i<25;i++){
-    let span = document.createElement("div");
+  const emojis=["✨","🌹","💐"];
+  for(let i=0;i<18;i++){
+    let span=document.createElement("div");
     span.className="floating";
-    span.innerText = emojis[Math.floor(Math.random()*emojis.length)];
-    span.style.left = Math.random()*100+"vw";
-    span.style.animationDuration = (7+Math.random()*5)+"s";
-    span.style.fontSize = (22+Math.random()*25)+"px";
+    span.innerText=emojis[Math.floor(Math.random()*emojis.length)];
+    span.style.left=Math.random()*100+"vw";
+    span.style.animationDuration=(8+Math.random()*6)+"s";
+    span.style.fontSize=(22+Math.random()*25)+"px";
     document.body.appendChild(span);
   }
 }
 
-btn.addEventListener("click",()=>{
+function explode(x,y){
+  const emojis=["💖","✨","🌸","💐"];
+  for(let i=0;i<12;i++){
+    let e=document.createElement("div");
+    e.className="explosion";
+    e.innerText=emojis[Math.floor(Math.random()*emojis.length)];
+    e.style.left=x+"px";
+    e.style.top=y+"px";
+    e.style.setProperty("--x",(Math.random()*200-100)+"px");
+    e.style.setProperty("--y",(Math.random()*200-100)+"px");
+    document.body.appendChild(e);
+    setTimeout(()=>e.remove(),900);
+  }
+}
+
+btn.addEventListener("pointerdown",()=>{
+  if(started) return;
+  started=true;
   btn.style.display="none";
   drawBouquet();
   createFloating();
   message.style.opacity=1;
+});
+
+document.addEventListener("pointerdown",(e)=>{
+  if(started){
+    explode(e.clientX,e.clientY);
+  }
 });
 </script>
 
